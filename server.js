@@ -6,9 +6,14 @@ import "./node_modules/dotenv/config.js"
 // **********************************
 // Import Dependencies
 // **********************************
-import express from "express"
+import express, { json } from "express"
 import cors from "cors"
 import "./config/database.js"
+
+// **********************************
+// Import Data
+// **********************************
+import exerciseRawData from './data/exercise.json' assert {type:'json'}
 
 // **********************************
 //Creating Application Objects
@@ -23,11 +28,12 @@ app.use(express.json())
 app.use(cors())
 
 // **********************************
-// Routes
+// Test Routes
 // **********************************
 app.get('/', function(req, res) {
     res.json({
-        message: `Welcome to Express`
+        message: `Welcome to Express`,
+        exercise: exerciseRawData
     })
 })
 
