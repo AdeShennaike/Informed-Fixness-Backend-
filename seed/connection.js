@@ -5,7 +5,7 @@ mongoose.Promise = Promise;
 const mongoURI = process.env.MONGODB
 
 mongoose
-  .connect(MONGODB, { useNewUrlParser: true })
+  .connect(mongoURI, { useUnifiedTopology: true, useNewUrlParser: true })
   .then(instance =>
     console.log(`Connected to db: ${instance.connections[0].name}`)
   )

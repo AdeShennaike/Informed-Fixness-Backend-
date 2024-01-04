@@ -8,12 +8,13 @@ import "./node_modules/dotenv/config.js"
 // **********************************
 import express, { json } from "express"
 import cors from "cors"
+import morgan from "morgan"
 import "./config/database.js"
 
 // **********************************
-// Import Data
+// Import Router
 // **********************************
-import exerciseRawData from './data/exercise.json' assert {type:'json'}
+import exerciseRouter from './routes/exercises.js'
 
 // **********************************
 //Creating Application Objects
@@ -26,25 +27,12 @@ const PORT = process.env.PORT || 3000
 // **********************************
 app.use(express.json())
 app.use(cors())
+app.use(morgan('dev'))
 
 // **********************************
-// Test Routes
+// Routes
 // **********************************
-app.get('/', function(req, res) {
-    res.json({
-        message: `Welcome to Express`,
-        exercise: exerciseRawData
-    })
-})
-
-app.post('/greet', function(req, res) {
-    const name = req.body.name
-
-    res.json({
-        greeting: `Welcome to Express ${name}`
-    })
-})
-
+app.use('/exercise', exerciseRouter)
 
 // **********************************
 // Set up the server to listen on a port
