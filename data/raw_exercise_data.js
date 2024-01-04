@@ -17,7 +17,7 @@ async function fetchDataAndWriteToFile() {
     const formattedData = JSON.stringify(data, null, 2);
     
     // Save to exercise.json
-    await fs.writeFile('./data/exercise.json', formattedData);
+    await fs.writeFile('./data/exerciseRaw.json', formattedData);
     console.log('Data saved to exercise.json');
   } catch (error) {
     console.error('Error fetching and writing data:', error);
