@@ -10,7 +10,7 @@ import { getExercises, getExerciseById, createExercise, updateExercise, removeEx
 router.get('/', async (req, res) => {
     try {
         const exercises = await getExercises()
-
+        
         //  Send all exercises
         res.status(200).json({
             exercises
@@ -23,9 +23,9 @@ router.get('/', async (req, res) => {
 })
 
 // **********************************
-// Get Exercise by id
+// Get Exercise by muscle name
 // **********************************
-router.get('/:id', async (req, res) => {
+router.get('/exercise:muscle', async (req, res) => {
     try {
         const id = req.params.id
         const exercise = await getExerciseById(id)

@@ -18,13 +18,10 @@ const exercises = ['abdominals',
   'traps',
   'triceps']
   
-  
-  // Replace 'API_ENDPOINT' with the actual endpoint of the API you're using
-// const API_ENDPOINT = `https://api.api-ninjas.com/v1/exercises;
-  
 async function fetchDataAndWriteToFile() {
   let allExercisesData = [];
 
+  // This loop runs the api request several times to get exercises for every muscle group
   for(let i = 0; i < exercises.length; i++){
     try {
       // Fetch data from the API
@@ -32,6 +29,7 @@ async function fetchDataAndWriteToFile() {
         {headers: { 
           'X-Api-Key': 'YY+/HA5kVPE7oPBhHTXJVg==f6wwv4BHCpXv8Ywk'}
         });
+    // Combines all api requests for every muscle group into one array
       allExercisesData = allExercisesData.concat(response.data) 
     // Transform data here if necessary
     const formattedData = JSON.stringify(allExercisesData, null, 2);
@@ -44,5 +42,6 @@ async function fetchDataAndWriteToFile() {
   }
   }
 }
+
 // Run the function
 fetchDataAndWriteToFile();

@@ -13,8 +13,8 @@ const getExercises = () => {
     })
 }
 
-const getExerciseById = (id) => {
-    return Exercise.find({exercise_id: id}) 
+const getExerciseById = (muscle) => {
+    return Exercise.find({muscle_group: muscle}) 
     .then((response) => {
       return response
     })
@@ -22,6 +22,7 @@ const getExerciseById = (id) => {
       throw error
     });
 }
+
 // **********************************
 // Create
 // **********************************
@@ -34,6 +35,7 @@ const createExercise = (exercise) => {
         throw error
     })
 }
+
 // **********************************
 // Update
 // **********************************

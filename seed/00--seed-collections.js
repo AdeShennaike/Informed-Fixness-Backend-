@@ -25,5 +25,4 @@ const exerciseDatabase = async ()=>{
     }
 }
 
-// console.log(exerciseData)
 exerciseDatabase()
