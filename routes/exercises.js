@@ -1,8 +1,9 @@
 import express from 'express'
+import Exercise from '../models/exercises.js'
 
 const router = express.Router()
 
-import { getExercises, getExerciseById, createExercise, updateExercise, removeExercise } from '../controllers/exercises.js'
+import { getExercises, getExerciseByMuscle ,getExerciseById, createExercise, updateExercise, removeExercise } from '../controllers/exercises.js'
 
 // **********************************
 // Get Exercises
@@ -16,8 +17,8 @@ router.get('/', async (req, res) => {
             exercises
         })
     } catch(error) {
-        res.status(400).json({
-            error: error,
+        res.status(404).json({
+            error: error.message,
             message: `There was an error getting the Exercise`})
     }
 })
@@ -25,7 +26,26 @@ router.get('/', async (req, res) => {
 // **********************************
 // Get Exercise by muscle name
 // **********************************
-router.get('/exercise:muscle', async (req, res) => {
+router.get('/:muscle', async (req, res) => {
+    try {
+        const muscleGroup = req.params.muscle
+        const exercise = await getExerciseByMuscle(muscleGroup)
+        
+        //  Send exercise
+        res.status(200).json({
+            exercise
+        })
+    } catch(error) {
+        res.status(404).json({
+            error: error.message,
+            message: `There was an error getting the Exercise`})
+        }
+    })
+
+// **********************************
+// Get Exercise by id
+// **********************************
+router.get('/:id', async (req, res) => {
     try {
         const id = req.params.id
         const exercise = await getExerciseById(id)
@@ -35,8 +55,8 @@ router.get('/exercise:muscle', async (req, res) => {
             exercise
         })
     } catch(error) {
-        res.status(400).json({
-            error: error,
+        res.status(404).json({
+            error: error.message,
             message: `There was an error getting the Exercise`})
         }
     })
@@ -55,7 +75,7 @@ router.post("/", async (req, res) => {
         })
     } catch (error){
         res.status(400).json({
-            error: error,
+            error: error.message,
             message: `There was an error creating the Exercise`})
         }
     })
@@ -69,12 +89,12 @@ router.put("/:id", async (req, res) => {
         const exerciseUpdate = req.body
         const exercise = await updateExercise(id, exerciseUpdate)
         
-        res.status(200).json({
+        res.status(200).json(
             exercise
-        })
+        )
     } catch(error){
         res.status(400).json({
-            error: error,
+            error: error.message,
             message: `There was an error updating the Exercise`})
         }
     })
@@ -85,14 +105,14 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     try {
         const id = req.params.id
-        const exercise = removeExercise()
+        const exercise = removeExercise(id)
  
         res.status(200).json({
             exercise
         })
     } catch (error) {
         res.status(400).json({
-        error: error,
+        error: error.message,
         message: `There was an error deleting the Exercise`})
     }
 })

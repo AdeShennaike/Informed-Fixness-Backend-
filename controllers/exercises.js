@@ -4,7 +4,7 @@ import Exercise from '../models/exercises.js'
 // Read 
 // **********************************
 const getExercises = () => {
-    return Exercise.find()
+    return Exercise.find({})
     .then((response) => {
         return response
     })
@@ -13,8 +13,18 @@ const getExercises = () => {
     })
 }
 
-const getExerciseById = (muscle) => {
+const getExerciseByMuscle = (muscle) => {
     return Exercise.find({muscle_group: muscle}) 
+    .then((response) => {
+      return response
+    })
+    .catch((error) => {
+      throw error
+    });
+}
+
+const getExerciseById = (id) => {
+    return Exercise.find({_id: id}) 
     .then((response) => {
       return response
     })
@@ -27,7 +37,7 @@ const getExerciseById = (muscle) => {
 // Create
 // **********************************
 const createExercise = (exercise) => {
-    return Exercise.insertOne(exercise)
+    return Exercise.create(exercise)
     .then((response) => {
         return response
     })
@@ -40,7 +50,7 @@ const createExercise = (exercise) => {
 // Update
 // **********************************
 const updateExercise = (id, updateData) => {
-    return Exercise.updateOne(id, updateData) 
+    return Exercise.findOneAndUpdate({_id: id}, updateData, { new: true }) 
     .then((response) => {
       return response
     })
@@ -53,7 +63,7 @@ const updateExercise = (id, updateData) => {
 // Delete
 // **********************************
 const removeExercise = (id) => {
-    return Exercise.deleteOne({ exercise_id: id })    
+    return Exercise.deleteOne({_id: id })    
     .then((response) => {
         return response
     })
@@ -64,6 +74,7 @@ const removeExercise = (id) => {
 
 export {
     getExercises,
+    getExerciseByMuscle,
     getExerciseById,
     createExercise,
     updateExercise,
