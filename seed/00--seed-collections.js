@@ -8,7 +8,8 @@ const exerciseData = exerciseRawData.map(exercise => {
     return {
         name: exercise.name,
         muscle_group: exercise.muscle,
-        equipment: exercise.equipment
+        equipment: exercise.equipment,
+        instructions: exercise.instructions
     }   
 })
 
