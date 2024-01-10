@@ -9,6 +9,7 @@ import "./node_modules/dotenv/config.js"
 import express, { json } from "express"
 import cors from "cors"
 import morgan from "morgan"
+import methodOverride from 'method-override'
 import "./config/database.js"
 
 // **********************************
@@ -28,6 +29,9 @@ const PORT = process.env.PORT || 3000
 app.use(express.json())
 app.use(cors())
 app.use(morgan('dev'))
+app.use(methodOverride('_method'))
+app.use(express.urlencoded({extended: true}))
+
 
 // **********************************
 // Routes
